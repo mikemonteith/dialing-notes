@@ -1,0 +1,13 @@
+.main {
+  padding: 1rem;
+}
+
+.header {
+  background-color: #683f1b;
+  padding: 1rem;
+}
+
+.logo {
+  color: white;
+  font-size: 1.5rem;
+}
