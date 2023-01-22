@@ -6,7 +6,7 @@ export default function Layout({ children } : {children: React.ReactNode}) {
     <>
       <header className={styles.header}>
         <div className="container">
-            <div className={styles.logo}>Tasting Notes</div>
+            <div className={styles.logo}>Dialing Notes</div>
         </div>
       </header>
       <main className={'container ' + styles.main}>{children}</main>
