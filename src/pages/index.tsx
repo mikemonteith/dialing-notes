@@ -5,15 +5,20 @@ import styles from '@/styles/Home.module.css'
 import Layout from '@/components/layout'
 
 import Form, { FormValues } from '@/components/form';
-import { PageProps, TastingNote } from '@/pages/_app'
+import { PageProps } from '@/pages/_app'
+import { TastingNote } from "@/data/index"
 
 interface HomeProps extends PageProps {}
 
 const Home: React.FC<HomeProps> = (props) => {
   const onSubmit = (values: FormValues) => {
+    if (!props.storage.currentBagId) {
+      throw Error("No coffee bag currently in use")
+    }
     const tastingNote: TastingNote = {
       ...values,
       date: new Date(),
+      coffeeBagId: props.storage.currentBagId,
     }
 
     const records = [
