@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dialingnotes-dev-142458-authRole",
+      "UnauthRoleArn": "arn:aws:iam::488860341912:role/amplify-dialingnotes-dev-142458-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::488860341912:role/amplify-dialingnotes-dev-142458-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-dialingnotes-dev-142458-deployment",
+      "UnauthRoleName": "amplify-dialingnotes-dev-142458-unauthRole",
+      "StackName": "amplify-dialingnotes-dev-142458",
+      "StackId": "arn:aws:cloudformation:eu-west-1:488860341912:stack/amplify-dialingnotes-dev-142458/35b11a90-a23c-11ed-b1e9-028986622db9",
+      "AmplifyAppId": "d30760tfvot617"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d30760tfvot617",
+          "type": "manual"
+        }
+      }
+    }
+  }
+}
