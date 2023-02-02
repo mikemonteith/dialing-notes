@@ -6,6 +6,7 @@
       "service": "Lambda"
     }
   },
+  "hosting": {},
   "parameters": {
     "AMPLIFY_function_sitemap_deploymentBucketName": {
       "usedBy": [

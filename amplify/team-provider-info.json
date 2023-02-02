@@ -15,7 +15,7 @@
       "function": {
         "sitemap": {
           "deploymentBucketName": "amplify-dialingnotes-dev-161908-deployment",
-          "s3Key": "amplify-builds/sitemap-6e54674a4c336a34694d-build.zip"
+          "s3Key": "amplify-builds/sitemap-766747564865576a3447-build.zip"
         }
       }
     }
