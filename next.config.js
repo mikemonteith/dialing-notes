@@ -5,7 +5,7 @@ const nextConfig = {
     return {
       beforeFiles: [{
         source: '/sitemap/:path*',
-        destination: 'https://example.com/:path',
+        destination: 'https://example.com/:path*',
       }]
     }
   }
