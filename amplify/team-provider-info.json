@@ -10,6 +10,14 @@
       "StackName": "amplify-dialingnotes-dev-161908",
       "StackId": "arn:aws:cloudformation:eu-west-1:488860341912:stack/amplify-dialingnotes-dev-161908/27f3d9a0-a24c-11ed-94b4-021367f9cecf",
       "AmplifyAppId": "dg2nlz3xymxag"
+    },
+    "categories": {
+      "function": {
+        "sitemap": {
+          "deploymentBucketName": "amplify-dialingnotes-dev-161908-deployment",
+          "s3Key": "amplify-builds/sitemap-6e54674a4c336a34694d-build.zip"
+        }
+      }
     }
   }
 }
