@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { v4 as uuidv4 } from 'uuid';
 import styles from '@/styles/Home.module.css'
 
 import Layout from '@/components/layout'
@@ -15,17 +16,20 @@ const Home: React.FC<HomeProps> = (props) => {
     if (!props.storage.currentBagId) {
       throw Error("No coffee bag currently in use")
     }
-    const tastingNote: TastingNote = {
+    const id = uuidv4()
+    const tastingNote = new TastingNote({
+      id,
       ...values,
-      date: new Date(),
+      date: new Date().toISOString(),
       coffeeBagId: props.storage.currentBagId,
-    }
+    }, props.storage.coffeeBags)
 
-    const records = [
-      tastingNote,
-      ...props.storage.records || [],
-    ]
-    props.onSetStorage({ records })
+    props.onSetStorage({
+      tastingNotes: {
+        ...props.storage.tastingNotes,
+        [id]: tastingNote,
+      }
+    })
   }
 
   return (
@@ -44,9 +48,11 @@ const Home: React.FC<HomeProps> = (props) => {
 
           <div className='col-12'>
             <ul className='list-group'>
-              {props.storage.records?.map((item, i) => (
-                <li key={i} className='list-group-item'>
-                  {item.grind} / {item.weightIn} / {item.weightOut} / {item.notes}
+              {Object.entries(props.storage.tastingNotes).map(([id, item]) => (
+                <li key={id} className='list-group-item'>
+                  <>
+                    {item.grind} / {item.weightIn} / {item.weightOut} / {item.notes} / {item.coffeeBag?.coffeeBeans?.name}
+                  </>
                 </li>
               ))}
             </ul>

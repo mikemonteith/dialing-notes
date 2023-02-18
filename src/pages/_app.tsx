@@ -3,19 +3,19 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 
 import 'bootstrap/dist/css/bootstrap.css'
-import { get as getStorage, set as setStorage, StorageData } from '@/data/localstorage'
+import { createInitialStorageData, get as getStorage, set as setStorage, StorageData } from '@/data/localstorage'
 
 /**
  * Props which are passed to all nextjs pages
  */
 export interface PageProps {
   storage: StorageData
-  onSetStorage: (data: StorageData) => void
+  onSetStorage: (data: Partial<StorageData>) => void
 }
 
 export default function App({ Component, pageProps }: AppProps) {
 
-  const [storageState, setStorageState] = useState<StorageData>({})
+  const [storageState, setStorageState] = useState<StorageData>(createInitialStorageData())
 
   // Fetch data out of storage
   useEffect(function() {

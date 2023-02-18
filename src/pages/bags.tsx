@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Head from "next/head";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { PageProps } from "./_app";
-import { CoffeeBag } from "@/data/index"
+import { CoffeeBeans, CoffeeBag } from "@/data/index"
 
 
 interface BagProps extends PageProps {}
@@ -16,10 +16,10 @@ const Bag: React.FC<BagProps> = (props) => {
     props.onSetStorage({
       coffeeBeans: {
         ...beans,
-        [beansName]: {
-          id: beansName,
-          name: beansName,
-        }
+        [beansName]: new CoffeeBeans({
+           id: beansName,
+           name: beansName,
+        }),
       }
     })
     setBeansName("")
@@ -40,16 +40,19 @@ const Bag: React.FC<BagProps> = (props) => {
     }
 
     const bagId = uuidv4();
-    const newbag: CoffeeBag = {
+    const newbag = new CoffeeBag({
       id: bagId,
       coffeeBeansId: beansId,
-      roastDate: new Date(roastDate),
-    }
+      roastDate: roastDate,
+    }, props.storage.coffeeBeans)
+
     props.onSetStorage({
       coffeeBags: {
         ...props.storage.coffeeBags,
         [bagId]: newbag,
-      }
+      },
+      // When we add a new bag, make it the current bag by default
+      currentBagId: bagId,
     })
 
     setBeansId("")
@@ -58,7 +61,6 @@ const Bag: React.FC<BagProps> = (props) => {
 
   const onClickBag = (bagId: string) => {
     props.onSetStorage({
-      ...props.storage,
       currentBagId: bagId,
     })
   }
@@ -125,7 +127,7 @@ const Bag: React.FC<BagProps> = (props) => {
               {Object.keys(bags).map((bagId, i) => (
                 <li onClick={() => onClickBag(bagId)} key={i}>
                   <>
-                    {bags[bagId].coffeeBeansId} @ {bags[bagId].roastDate.toDateString()}
+                    {bags[bagId].coffeeBeans.name} @ {bags[bagId].roastDate.toDateString()}
                     {bagId == props.storage.currentBagId ? <span className='px-2'>*</span> : ''}
                   </>
                 </li>
