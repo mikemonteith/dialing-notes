@@ -3,7 +3,27 @@ import { v4 as uuidv4 } from 'uuid';
 import Head from "next/head";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { PageProps } from "./_app";
-import { CoffeeBeans, CoffeeBag } from "@/data/index"
+import { CoffeeBeans, CoffeeBag, CoffeeBagID } from "@/data/index"
+import clsx from "clsx";
+
+
+type BagItemProps = {
+  onClick: React.MouseEventHandler
+  bag: CoffeeBag
+  currentBagId?: CoffeeBagID
+}
+
+const BagItem: React.FC<BagItemProps> = (props) => {
+  const isActive = (props.bag.id == props.currentBagId)
+  return (
+    <li className={clsx(isActive && "fw-bold")} onClick={props.onClick}>
+      <>
+        {props.bag.coffeeBeans.name} @ {props.bag.roastDate.toDateString()}
+        {isActive ? <span className='px-2'>*</span> : ''}
+      </>
+    </li>
+  )
+}
 
 
 interface BagProps extends PageProps {}
@@ -84,7 +104,7 @@ const Bag: React.FC<BagProps> = (props) => {
                 />
                 <label htmlFor='beansNameInput' className='form-label'>Beans name</label>
               </div>
-              <button className="btn btn-primary" type='submit'>Save beans</button>
+              <button className="btn btn-primary my-2" type='submit'>Save beans</button>
             </form>
             <ul>
               {Object.keys(beans).map((key, i) => (
@@ -92,6 +112,7 @@ const Bag: React.FC<BagProps> = (props) => {
               ))}
             </ul>
           </div>
+          <hr />
           <div className='col-lg-6'>
             <form onSubmit={onSubmitBag}>
               <select
@@ -119,18 +140,18 @@ const Bag: React.FC<BagProps> = (props) => {
                   />
                   <label htmlFor='roastDateInput' className='form-label'>Roast date</label>
               </div>
-              <button className='btn btn-primary' type='submit'>Save</button>
+              <button className='btn btn-primary my-2' type='submit'>Save</button>
             </form>
           </div>
           <div className='col-12'>
             <ul className='list-group'>
               {Object.keys(bags).map((bagId, i) => (
-                <li onClick={() => onClickBag(bagId)} key={i}>
-                  <>
-                    {bags[bagId].coffeeBeans.name} @ {bags[bagId].roastDate.toDateString()}
-                    {bagId == props.storage.currentBagId ? <span className='px-2'>*</span> : ''}
-                  </>
-                </li>
+                <BagItem
+                  bag={bags[bagId]}
+                  currentBagId={props.storage.currentBagId}
+                  onClick={() => onClickBag(bagId)}
+                  key={i}
+                />
               ))}
             </ul>
           </div>
