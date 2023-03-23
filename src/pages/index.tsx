@@ -8,6 +8,7 @@ import Layout from '@/components/layout'
 import Form, { FormValues } from '@/components/form';
 import { PageProps } from '@/pages/_app'
 import { TastingNote } from "@/data/index"
+import Link from 'next/link';
 
 interface HomeProps extends PageProps {}
 
@@ -32,6 +33,8 @@ const Home: React.FC<HomeProps> = (props) => {
     })
   }
 
+  const currentBag = props.storage.currentBagId ? props.storage.coffeeBags[props.storage.currentBagId] : undefined
+
   return (
     <>
       <Head>
@@ -43,6 +46,12 @@ const Home: React.FC<HomeProps> = (props) => {
       <Layout>
         <div className='row'>
           <div className='col-lg-4 py-4'>
+            {currentBag && (
+              <p>
+                Using coffee bag: {currentBag.coffeeBeans.name}&nbsp;
+                | (<Link href="/bags">Change</Link>)
+              </p>
+            )}
             <Form onSubmit={onSubmit} />
           </div>
 
