@@ -1,33 +1,14 @@
 {
-  "name": "mikes-app",
-  "version": "0.1.0",
-  "private": true,
+  "name": "dialing-notes",
+  "workspaces": [
+    "app",
+    "infra"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@jest/globals": "^29.4.2",
-    "@next/font": "13.1.2",
-    "@types/jest": "^29.4.0",
-    "@types/node": "18.11.18",
-    "@types/react": "18.0.26",
-    "@types/react-dom": "18.0.10",
-    "@types/uuid": "^9.0.0",
-    "bootstrap": "^5.2.3",
-    "clsx": "^1.2.1",
-    "eslint": "8.32.0",
-    "eslint-config-next": "13.1.2",
-    "next": "13.1.2",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "typescript": "4.9.4",
-    "uuid": "^9.0.0"
-  },
-  "devDependencies": {
-    "jest": "^29.4.2",
-    "ts-jest": "^29.0.5"
+    "dev": "cd app && npm run dev",
+    "build": "NODE_ENV=production; cd app && npm run build && npm run export",
+    "deploy:infra": "cd infra && npx cdk deploy --all --outputs-file=cdk-outputs.json",
+    "deploy:app": "aws s3 sync app/out \"s3://$(cat infra/cdk-outputs.json | jq -r .DialingNotesWebApp.WebsiteBucketNameOutput )\" --delete",
+    "deploy": "npm run deploy:infra && npm run deploy:app"
   }
 }
