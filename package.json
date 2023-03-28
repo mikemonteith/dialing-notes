@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "cd app && npm run dev",
     "build": "NODE_ENV=production; cd app && npm run build && npm run export",
-    "deploy:infra": "cd infra && npx cdk deploy DialingNotesWebApp --outputs-file=cdk-outputs.json",
+    "deploy:infra": "cd infra && npx cdk deploy --all --outputs-file=cdk-outputs.json",
     "deploy:app": "aws s3 sync app/out \"s3://$(cat infra/cdk-outputs.json | jq -r .DialingNotesWebApp.WebsiteBucketNameOutput )\" --delete",
     "deploy": "npm run deploy:infra && npm run deploy:app"
   }
